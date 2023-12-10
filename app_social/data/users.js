@@ -1,0 +1,27 @@
+export const Users=[
+    {
+        id:1,
+        image:'https://picsum.photos/200/300',
+        name:'usman',
+    },
+    {
+        id:2,
+        image:'https://picsum.photos/200/300',
+        name:'zohaib',
+    },
+    {
+        id:3,
+        image:'https://picsum.photos/200/300',
+        name:'Anees',
+    },
+    {
+        id:4,
+        image:'https://picsum.photos/200/300',
+        name:'naeem',
+    },
+    {
+        id:5,
+        image:'https://picsum.photos/200/300',
+        name:'Attique',
+    },
+]
