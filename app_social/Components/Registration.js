@@ -2,17 +2,21 @@ import { View, Text,TouchableOpacity,TextInput,StyleSheet, Alert } from 'react-n
 import React, {useState} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'; // You can use a different icon library
 import { firebase } from '../config';
+import { firebase_auth } from '../config';
+import { firebase_db } from '../config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const Registration = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState(''); 
     const [phone, setPhone] = useState('');
+    
 
     registerUser= async (email,password,name,phone)=>{
-        await firebase.auth().createUserWithEmailAndPassword(email,password)
+        await createUserWithEmailAndPassword(firebase_auth,email,password)
         .then(()=>{
-            firebase.auth().currentUser.sendEmailVerification({
+            firebase_auth.currentUser.sendEmailVerification({
                 handleCodeInApp:true,
                 url:'https://test-661bc.firebaseapp.com',
 
@@ -24,8 +28,8 @@ const Registration = () => {
                 Alert.alert(error.message)
             })
             .then(()=>{
-                firebase.firestore().collection('users')
-                .doc(firebase.auth().currentUser.uid)
+                firebase_db.collection('users')
+                .doc(firebase_auth.currentUser.uid)
                 .set({
                     name,
                     email,

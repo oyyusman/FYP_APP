@@ -1,14 +1,15 @@
 import { View, Text,SafeAreaView,TouchableOpacity } from 'react-native'
 import React, {useState,useEffect} from 'react'
-import { firebase} from '../config';
-
+import {firebase_auth} from '../config';
+import { firebase_db } from '../config';
+import { doc,getDoc} from 'firebase/firestore';
 
 const Dashboard = () => {
     const [user, setUser] = useState('');
     
     //  change password
     const changepassword=()=>{
-        firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
+        firebase_auth.sendPasswordResetEmail(firebase_auth.currentUser.email)
         .then(()=>{
             Alert.alert('Password reset email sent')
         })
@@ -22,17 +23,19 @@ const Dashboard = () => {
 
     useEffect(() => {
 
-        firebase.firestore().collection('users').doc(firebase.auth().currentUser.uid).get()
-        .then((documentSnapshot)=>{
-            if(documentSnapshot.exists){
-                setUser(documentSnapshot.data())
-            }
-            else{
-                console.log('user does not exist')
-            }
+        const userRef = doc(firebase_db, 'users', firebase_auth.currentUser.uid);
 
-            
-        })
+getDoc(userRef)
+  .then((querySnapshot) => {
+    if (querySnapshot.exists()) {
+      setUser(querySnapshot.data());
+    } else {
+      console.log('User does not exist');
+    }
+  })
+  .catch((error) => {
+    console.error('Error fetching user data:', error.message);
+  });
 
     }, [])
 
@@ -41,7 +44,7 @@ const Dashboard = () => {
         <SafeAreaView>
         <View style={{flexDirection:'row',justifyContent:'space-between',padding:10,backgroundColor:'#0FA055'}}>
         <Text style={{fontSize:20,color:'white'}}>Welcome {user.name}</Text>
-        <TouchableOpacity onPress={()=> {firebase.auth().signOut()}}>
+        <TouchableOpacity onPress={()=> {firebase_auth.signOut()}}>
         <Text style={{fontSize:20,color:'white'}}>Logout</Text>
         </TouchableOpacity>
         </View>

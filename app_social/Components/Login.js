@@ -1,17 +1,20 @@
 import { View, Text,TouchableOpacity,TextInput,StyleSheet, Alert } from 'react-native'
 import React, {useState} from 'react'
 import { firebase } from '../config';
+import {auth} from '../config'
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // You can use a different icon library
-
+import { firebase_auth } from '../config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 const Login = () => {
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const auth = firebase_auth;
     const forgetpassword=()=>{
-        firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
+         auth.sendPasswordResetEmail(auth.currentUser.email)
         .then(()=>{
             Alert.alert('Password reset email sent')
         })
@@ -20,9 +23,9 @@ const Login = () => {
         })
     }
 
-    loginUser=async(email,password)=>{
+    const loginUser= async(email,password)=>{
         try{
-            await firebase.auth().signInWithEmailAndPassword(email,password);
+            await signInWithEmailAndPassword(auth,email,password);
         }catch(error){
             Alert.alert(error.message);
         }
@@ -109,7 +112,7 @@ const styles=StyleSheet.create({
 
     },
     button: {
-        backgroundColor: '#0FA055',
+        backgroundColor: 'black',
         paddin: 10,
         height:50,
         borderRadius: 10,
