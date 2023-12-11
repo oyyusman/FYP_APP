@@ -1,19 +1,24 @@
 import { View, Text,TouchableOpacity,TextInput,StyleSheet, Alert } from 'react-native'
 import React, {useState} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'; // You can use a different icon library
-import { firebase } from '../config';
 import { firebase_auth } from '../config';
 import { firebase_db } from '../config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Registration = () => {
+    const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState(''); 
-    const [phone, setPhone] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     
 
-    registerUser= async (email,password,name,phone)=>{
+    registerUser= async (email,password)=>{
+        if(password!==confirmPassword){
+            Alert.alert('Password does not match')
+            return
+        }
         await createUserWithEmailAndPassword(firebase_auth,email,password)
         .then(()=>{
             firebase_auth.currentUser.sendEmailVerification({
@@ -31,9 +36,9 @@ const Registration = () => {
                 firebase_db.collection('users')
                 .doc(firebase_auth.currentUser.uid)
                 .set({
-                    name,
+                    password,
                     email,
-                    phone,
+                
                 })
             })
             .catch((error)=>{
@@ -55,22 +60,6 @@ const Registration = () => {
       <Text style={styles.mtext}>Hello There👋</Text>
       <Text style={styles.dtext} >Please Enter your Details to Create an Account</Text>
       <View style={styles.mContainer}>
-      <Text style={styles.label}>Name</Text>
-      <View style={styles.inputcontainer} >
-        <TextInput
-         style={styles.input}
-  placeholder="Enter your Name"
-  keyboardType="email-address" // This sets the keyboard to email input type
-  autoCapitalize="none" // Prevents automatic capitalization of the first letter
-  autoCorrect={false}
-  onChangeTextT={(name)=>setName(name)}
- />
-
-      </View>
-      
-      </View>
-      <View style={styles.mContainer}>
-      <Text style={styles.label}>Email Address</Text>
       <View style={styles.inputcontainer} >
         <TextInput
          style={styles.input}
@@ -84,24 +73,7 @@ const Registration = () => {
       </View>
       
       </View>
-      <View style={styles.mContainer}>
-      <Text style={styles.label}>Phone Number</Text>
-      <View style={styles.inputcontainer} >
-        <TextInput
-         style={styles.input}
-  placeholder="Enter your phone number"
-  keyboardType="numeric" // This sets the keyboard to email input type
-  autoCapitalize="none" // Prevents automatic capitalization of the first letter
-    autoCorrect={false}
-    onChangeText={(phone)=>setPhone(phone)}
- />
-           <Icon name="envelope-o" size={18} color="#0FA055" style={styles.icon} />
-
-      </View>
-      
-      </View>
       <View style={styles.dContainer} >
-      <Text style={styles.label}>Password</Text>
       <View style={styles.inputcontainer} >
       <TextInput
         style={styles.input}
@@ -115,10 +87,28 @@ const Registration = () => {
 
       </View>
     </View>
-    <TouchableOpacity  onPress={() => registerUser(email,password,name,phone)} style={styles.button}>
-                    <Text style={styles.buttonText}>Sign in</Text>
+     <View style={styles.dContainer} >
+      <View style={[styles.inputcontainer, { borderColor: confirmPassword === password ? 'black' : 'red' }]} >
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm Password"
+        secureTextEntry={true} // Mask the text for password input
+        keyboardType="default" // Use the default keyboard type
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}       />
+
+      </View>
+      {confirmPassword !== password && (
+          <Text style={{ color: 'red', marginTop: 5 }}>Passwords do not match</Text>
+        )}
+    </View>
+    <TouchableOpacity  onPress={() => registerUser(email,password)} style={styles.button}>
+                    <Text style={styles.buttonText}>Sign up</Text>
             </TouchableOpacity>
-    <Text style={styles.faccount}>Already Have an account<Text style={styles.Naccount} >Sign up</Text> </Text>
+    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+    <Text style={styles.faccount}>Already Have an account? <Text style={styles.Naccount} >Sign up</Text> </Text>
+     </TouchableOpacity>
 
 
     </View>
@@ -160,7 +150,7 @@ const styles=StyleSheet.create({
 
 },
     button: {
-        backgroundColor: '#0FA055',
+        backgroundColor: 'black',
         paddin: 10,
         height:50,
         borderRadius: 10,
@@ -179,21 +169,26 @@ const styles=StyleSheet.create({
     fpassword:{
             textAlign:'right',
             marginRight:4,
-            color:'#0FA055'
+            color:'black'
     },
     
         inputcontainer: {
             flexDirection: 'row',
             alignItems:'center',
             borderBottomWidth: 1,
-            borderColor: '#0FA055',
+            borderTopWidth:1,
+            borderLeftWidth:1,
+            borderRightWidth:1,
+            borderRadius:10,
+            borderColor: 'black',
           },
+        
           icon: {
             marginLeft: 190,
             textAlign:'right',
           },
           icon2:{
-            marginLeft: 165,
+            marginLeft: 10,
             textAlign:'right',
           },
           input: {
@@ -203,7 +198,7 @@ const styles=StyleSheet.create({
             borderColor: 'gray',
             borderWidth: 1, 
             
-            backgroundColor:'#C9D0CC',
+            backgroundColor:'black',
             borderRadius:10
           },
 
@@ -211,9 +206,13 @@ const styles=StyleSheet.create({
     faccount:{
         textAlign:'center',
         marginTop:10,
+        fontSize:14,
    },
    Naccount:{
-    color:'#0FA055'
+    color:'black',
+    fontSize:14,
+    fontWeight:'bold',
+    textDecorationLine:'underline',
 },
     dtext:{
         marginLeft:20,

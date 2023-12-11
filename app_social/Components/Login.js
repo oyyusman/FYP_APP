@@ -6,9 +6,26 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome'; // You can use a different icon library
 import { firebase_auth } from '../config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin'; 
 
 
 const Login = () => {
+    
+GoogleSignin.configure({
+  webClientId: '923806776471-ddnu2kcpcrrrp56qbpc6jch502oq4kc0.apps.googleusercontent.com',
+});
+async function onGoogleButtonPress() {
+  // Check if your device supports Google Play
+  await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+  // Get the users ID token
+  const { idToken } = await GoogleSignin.signIn();
+
+  // Create a Google credential with the token
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+  // Sign-in the user with the credential
+  return auth().signInWithCredential(googleCredential);
+}
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -37,7 +54,6 @@ const Login = () => {
       <Text style={styles.mtext}>Welcome Back👋</Text>
       <Text style={styles.dtext} >Please Enter your Email and Password to Sign in</Text>
       <View style={styles.mContainer}>
-      <Text style={styles.label}>Email Address</Text>
       <View style={styles.inputcontainer} >
         <TextInput
          style={styles.input}
@@ -47,13 +63,12 @@ const Login = () => {
   onChangeText={(email)=>setEmail(email)}
   autoCorrect={false} 
  />
-           <Icon name="envelope-o" size={18} color="#0FA055" style={styles.icon} />
+           <Icon name="envelope-o" size={18} color="black" style={styles.icon} />
 
       </View>
       
       </View>
       <View style={styles.dContainer} >
-      <Text style={styles.label}>Password</Text>
       <View style={styles.inputcontainer} >
       <TextInput
         style={styles.input}
@@ -64,7 +79,7 @@ const Login = () => {
         autoCapitalize="none"
         autoCorrect={false}
        />
-       <Icon name="eye-slash" size={18} color="#0FA055" style={styles.icon2} />
+       <Icon name="eye-slash" size={18} color="black" style={styles.icon2} />
 
       </View>
       <TouchableOpacity>
@@ -131,14 +146,20 @@ const styles=StyleSheet.create({
     fpassword:{
             textAlign:'right',
             marginRight:4,
-            color:'#0FA055'
+            color:'black',
+            textDecorationLine:'underline',
+        
     },
     
         inputcontainer: {
             flexDirection: 'row',
             alignItems:'center',
             borderBottomWidth: 1,
-            borderColor: '#0FA055',
+            borderColor: 'black',
+            borderTopWidth:1,
+            borderLeftWidth:1,
+            borderRightWidth:1,
+            borderRadius:10,
           },
           icon: {
             marginLeft: 190,

@@ -13,6 +13,8 @@ import FrontScreen from './Components/FrontScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreen from './Components/OnboardingScreen';
 import { firebase_auth } from './config';
+import Registration2 from './Components/Registration2';
+import ChatBot from './Components/ChatBot';
 
 
 const Stack = createStackNavigator();
@@ -71,19 +73,24 @@ function  App () {
     return (
       
       <Stack.Navigator>
+      <Stack.Screen name="ChatBot" options={{headerShown:false}} component={ChatBot} />
+
       <Stack.Screen name="Onboarding"  options={{ headerShown: false }} component={OnboardingScreen} />
 
       <Stack.Screen name="FrontScreen"  options={{ headerShown: false }} component={FrontScreen} />
 
       <Stack.Screen name="Login" options={{ headerShown: false, }} component={Login} />
       <Stack.Screen name="Registration" options={{ headerShown: false, }} component={Registration} />
-      <Stack.Screen name="Dashboard" options={{ headerShown: false, }} component={Dashboard} />
+      <Stack.Screen name="Registration2" options={{ headerShown: false, }} component={Registration2} />
+      
       </Stack.Navigator>
 )
 };
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Dashboard" options={{headerShown:false}} component={Dashboard} />
+      <Stack.Screen name="ChatBot" options={{headerShown:false}} component={ChatBot} />
+
 
 
     </Stack.Navigator>
