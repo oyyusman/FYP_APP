@@ -74,8 +74,8 @@ const ChatBot = () => {
 
   return(
     <View style={{flex:1}} >
-    <View style={{backgroundColor:'#F5F5F5',padding:10,alignItems:'center',justifyContent:'center',borderBottomWidth:1,marginTop:40,marginBottom:5}}>
-        <Text style={{fontSize:32,fontWeight:'bold'}} >Language Learning Bot</Text>
+    <View style={{backgroundColor:'#F5F5F5',padding:10,alignItems:'center',justifyContent:'center',borderBottomWidth:1,marginTop:16,marginBottom:5}}>
+        <Text style={{fontSize:24,fontWeight:'bold',color:'black'}} >Language Learning Bot</Text>
     </View>
         <GiftedChat messages={messages} onSend={newmessages=>handleSend(newmessages)} user={{_id:1}} />
     
