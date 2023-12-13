@@ -75,20 +75,22 @@ function App() {
     return (
 
       <Stack.Navigator>
-        {/* <Stack.Screen name="ChatBot" options={{headerShown:false}} component={ChatBot} /> */}
-        <Stack.Screen name="Dashboard" options={{ headerShown: false }} component={Dashboard} />
-
         <Stack.Screen name="Onboarding" options={{ headerShown: false }} component={OnboardingScreen} />
 
+        <Stack.Screen name="Dashboard" options={{ headerShown: false }} component={Dashboard} />
+
+
         <Stack.Screen name="FrontScreen" options={{ headerShown: false }} component={FrontScreen} />
+        <Stack.Screen name="Registration2" options={{ headerShown: false, }} component={Registration2} />
 
         <Stack.Screen name="Login" options={{ headerShown: false, }} component={Login} />
         {/* <Stack.Screen name="Dashboard" options={{ headerShown: false }} component={Dashboard} /> */}
 
         <Stack.Screen name="Registration" options={{ headerShown: false, }} component={Registration} />
-        <Stack.Screen name="Registration2" options={{ headerShown: false, }} component={Registration2} />
         <Stack.Screen name="Hobbies" options={{ headerShown: false, }} component={Hobbies}/>
         <Stack.Screen name="Explore" options={{ headerShown: false, }} component={Explore} />
+        <Stack.Screen name="ChatBot" options={{headerShown:false}} component={ChatBot} />
+
 
 
 
@@ -99,6 +101,12 @@ function App() {
     <Stack.Navigator>
       <Stack.Screen name="Dashboard" options={{ headerShown: false }} component={Dashboard} />
       <Stack.Screen name="ChatBot" options={{ headerShown: false }} component={ChatBot} />
+      <Stack.Screen name="Registration2" options={{ headerShown: false, }} component={Registration2} />
+      <Stack.Screen name="Hobbies" options={{ headerShown: false, }} component={Hobbies} />
+      <Stack.Screen name="Explore" options={{ headerShown: false, }} component={Explore} />
+
+
+
 
 
 

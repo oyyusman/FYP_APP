@@ -4,8 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // You can use a diffe
 import { firebase_auth } from '../config';
 import { firebase_db } from '../config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Registration2 = () => {
@@ -30,7 +30,14 @@ const Registration2 = () => {
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 15,
+        borderRadius: 30,
         marginTop: 30,
+        shadowColor: '#36485f',
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.1,
+        shadowRadius: 20,
+        elevation: 6,
+
       }}>
         <DropDownPicker
           open={open}

@@ -63,7 +63,7 @@ const Dashboard = () => {
                         <Text>Other</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.inputcontainer2} >
+                <View style={styles.inputcontainer3} >
                     <TouchableOpacity onPress={showDatePickerModal}>
                         <Text style={styles.label}>Date of Birth</Text>
                     </TouchableOpacity>
@@ -77,7 +77,7 @@ const Dashboard = () => {
                     )}
                     <Text style={styles.label1}>{selectedDate ? selectedDate.toDateString() : 'Date of Bi'}</Text>
                 </View>
-                <TouchableOpacity onPress={() =>navigation.navigate('Registration2')} style={styles.button}>
+                <TouchableOpacity onPress={() => navigation.navigate('Registration2')} style={styles.button}>
                     <Text style={styles.buttonText}>Continue</Text>
                 </TouchableOpacity>
 
@@ -96,12 +96,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         color: 'black',
-
+ 
     },
     selectedButton: {
         backgroundColor: '#32ABAB', // Change the background color when selected
         borderColor: '#32ABAB', // Change the border color when selected
-        borderRadius: 10,
+        borderRadius: 6,
         borderWidth: 8,
 
     },
@@ -129,29 +129,49 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     inputcontainer: {
+        backgroundColor: '#fff',
+        borderRadius: 30,
         flexDirection: 'row',
         alignItems: 'center',
-        borderBottomWidth: 1,
-        borderColor: 'black',
-        borderTopWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderRadius: 10,
-        marginHorizontal: 8,
+        marginBottom: 15,
+        marginHorizontal:4,
+        paddingHorizontal: 10,
+        shadowColor: '#36485f',
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.1,
+        shadowRadius: 20,
+        elevation: 6,
     },
     inputcontainer2: {
+        backgroundColor: '#fff',
+        borderRadius: 30,
         flexDirection: 'row',
+        alignItems: 'center',
+        height:48,
+        marginBottom: 15,
+        marginHorizontal: 4,
+        paddingHorizontal: 10,
+        shadowColor: '#36485f',
+        shadowOffset: { width: 0, height: 30 },
+        shadowOpacity: 0.1,
+        shadowRadius: 20,
+        elevation: 6,
+    },
+    inputcontainer3:{
+        flexDirection: 'row',
+        backgroundColor: '#fff',
         height: 48,
-        borderBottomWidth: 1,
         borderColor: 'black',
         alignItems: 'center',
-        borderTopWidth: 1,
         justifyContent: 'space-between',
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
-        borderRadius: 10,
+        borderRadius: 30,
         marginHorizontal: 8,
-        marginTop: 24,
+        marginTop: 15,
+        shadowColor: '#36485f',
+        shadowOffset: { width: 0, height: 30 },
+        shadowOpacity: 0.1,
+        shadowRadius: 20,
+        elevation: 6,
     },
     t1: {
         alignItems: 'center',

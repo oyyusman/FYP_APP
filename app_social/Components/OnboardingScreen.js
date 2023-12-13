@@ -1,95 +1,86 @@
-import { View, Text,Button,StyleSheet,Image } from 'react-native'
-import React from 'react'
-import Onboarding from 'react-native-onboarding-swiper';
+import React from 'react';
+import { View, Text, Image, Button, StyleSheet } from 'react-native';
+import AppIntroSlider from 'react-native-app-intro-slider';
 import { useNavigation } from '@react-navigation/native';
 
+const slides = [
+  {
+    key: 'one',
+    title: 'Connect with family and friends around the world with Social App',
+    image: require('../pictures/f3.png'),
+  },
+  {
+    key: 'two',
+    title: 'Realtime Chat with your friends and family with Social App',
+    image: require('../pictures/f14.png'),
+  },
+  {
+    key: 'three',
+    title: 'Enjoy connecting in a whole way',
+    image: require('../pictures/f15.jpg'),
+  },
+];
 
 const OnboardingScreen = () => {
-    const navigation = useNavigation();
-    const Dots = ({selected}) => {
-        let backgroundColor;
-        backgroundColor = selected ? 'rgba(0,0,0,0.8)' : 'rgba(0,0,0,0.3)';
-        return(
-            <View
-            style={{
-                width:6,
-                height:6,
-                marginHorizontal:3,
-                backgroundColor
-            }}
-            />
-        );
-    }
-    const Skip = ({...props}) => (
-        <Button
-        title='Skip'
-        color='#000000'
-        {...props}
-    
-        />
-    );
-    const Next = ({...props}) => (
-        <Button
-        title='Next'
-        color='#000000'
-        {...props}
-    
-        />
-    );
-    const Done = ({...props}) => (
-        <Button
-        title='Done'
-        color='#000000'
-        {...props}
-    
-        />
-    );
+  const navigation = useNavigation();
+  const [showHomePage, setShowHomePage] = React.useState(false);
 
+  const _renderItem = ({ item }) => {
+    return (
+      <View style={styles.slide}>
+        <Image source={item.image} style={styles.image} />
+        <Text style={styles.title}>{item.title}</Text>
+      </View>
+    );
+  };
+
+  const _onDone = () => {
+    // User finished the onboarding. Navigate to your main screen here
+    navigation.navigate("FrontScreen");
+  };
 
 
   return (
-    <Onboarding
-    SkipButtonComponent={Skip}
-    NextButtonComponent={Next}
-    DoneButtonComponent={Done}
-    DotComponent={Dots}
-    onSkip={() => navigation.replace("FrontScreen")}
-    onDone={() => navigation.navigate("FrontScreen")}
-    contentContainerStyles={{ paddingBottom: 600 }}
+    <AppIntroSlider
+      renderItem={_renderItem}
+      data={slides}
+      onDone={_onDone}
+      showSkipButton={true}
+      onSkip={_onDone}
+      dotStyle={styles.dotStyle}
+      activeDotStyle={styles.activeDotStyle}
+      buttonTextStyle={styles.buttonText}
+    />
+  );
+};
 
-  pages={[
-    {
-      backgroundColor: '#FAF8F7',
-      title: 'Connect with family and friends around the world with Social App',
-      image: <Image source={require('../pictures/f3.png')} style={{width:'100%',height:'60%'}} />,
-      titleStyles: {fontSize:18 , }, // overwrite default color
+const styles = StyleSheet.create({
+  slide: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FAF8F7',
+  },
+  image: {
+    width: '100%',
+    height: '60%',
+    resizeMode: 'cover',
+  },
+  title: {
+    paddingTop: 25,
+    fontSize: 18,
+    color: '#21465b',
+    textAlign: 'center',
+  },
+  dotStyle: {
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  activeDotStyle: {
+    backgroundColor: '#21465b',
+  },
+  buttonText: {
+    color: '#000000',
+  },
+});
 
-    },
-    {
-      backgroundColor: '#FAF8F7',
-      image: <Image source={require('../pictures/f14.png')} style={{width:'100%',height:'60%'}} />,
-      title: 'Realtime Chat with your friends and family with Social App',
-      titleStyles: {fontSize:18 }, // overwrite default color
-    },
-    {
-      backgroundColor: '#FAF8F7',
-      image: <Image source={require('../pictures/f15.jpg')} style={{width:'100%',height:'60%'}} />,
-      title: 'Connect with family and friends around the world with Social App',
-      titleStyles: {fontSize:18 }, // overwrite default color
-    },
-    
-  ]}
-      bottomBarHighlight={false}
-      bottomBarHeight={100}
-
-
-      
-
-      
-      
-
-/>
-  )
-}
-
-export default OnboardingScreen
+export default OnboardingScreen;

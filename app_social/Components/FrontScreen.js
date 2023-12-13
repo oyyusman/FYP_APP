@@ -21,14 +21,14 @@ const FrontScreen = () => {
             <Text style={styles.ftext}>-------------------- or ------------------------</Text> 
             <TouchableOpacity  onPress={() => navigation.navigate('Login')} style={styles.button1}>
               <View style={styles.gcontainer}>
-                <Icon name="google-plus" size={20} color="black" style={styles.icon} />
-                <Text style={styles.buttonText1}>Sign in with Google</Text>
+                {/* <Icon name="google-plus" size={20} color="black" style={styles.icon} /> */}
+                <Text style={styles.buttonText1}>Login </Text>
 
               </View>
             </TouchableOpacity>
-            <TouchableOpacity  onPress={() => navigation.navigate('Login')} style={styles.b1}>
+            {/* <TouchableOpacity  onPress={() => navigation.navigate('Login')} style={styles.b1}>
                     <Text style={styles.buttonText3}>Already have an Account?Login</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
       </View>
       
 

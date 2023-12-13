@@ -63,7 +63,7 @@ async function onGoogleButtonPress() {
   onChangeText={(email)=>setEmail(email)}
   autoCorrect={false} 
  />
-           <Icon name="envelope-o" size={18} color="black" style={styles.icon} />
+<Icon name="envelope-o" size={18} color="black" style={styles.icon} />
 
       </View>
       
@@ -82,7 +82,7 @@ async function onGoogleButtonPress() {
        <Icon name="eye-slash" size={18} color="black" style={styles.icon2} />
 
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>forgetpassword()}>
                 <Text style={styles.fpassword}> forget Password?</Text>
             </TouchableOpacity>
 
@@ -150,35 +150,34 @@ const styles=StyleSheet.create({
             textDecorationLine:'underline',
         
     },
-    
-        inputcontainer: {
-            flexDirection: 'row',
-            alignItems:'center',
-            borderBottomWidth: 1,
-            borderColor: 'black',
-            borderTopWidth:1,
-            borderLeftWidth:1,
-            borderRightWidth:1,
-            borderRadius:10,
-          },
+  inputcontainer: {
+    backgroundColor: '#fff',
+    borderRadius: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+    paddingHorizontal: 20,
+    shadowColor: '#36485f',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 6,
+  },
+  input: {
+    flex: 1,
+    height: 50,
+    fontSize: 14,
+    color: '#36485f',
+  },
           icon: {
-            marginLeft: 190,
-            textAlign:'right',
+            marginLeft: 160,
+            // textAlign:'right',
           },
           icon2:{
-            marginLeft: 165,
-            textAlign:'right',
+            marginLeft: 155,
+            // textAlign:'right',
           },
-          input: {
-            flex: 1,
-            // height: 10,
-            paddingLeft: 10,
-            borderColor: 'gray',
-            borderWidth: 1, 
-            
-            backgroundColor:'#C9D0CC',
-            borderRadius:10
-          },
+          
 
     
     faccount:{
